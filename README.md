@@ -38,6 +38,7 @@ project to learn and develop with [V8](https://developers.google.com/v8/)
 2. build: `./scripts/build src/playground.cc`
 3. run: `./scripts/run src/playground.cc`
 4. build and run on change (dev): `./scripts/build-and-run-on-change src/playground.cc`
+    ![](https://www.evernote.com/l/AAEUVIkQELlEW4GZtid7LUwHMnwJbAyyDywB/image.png)
 
 ---
 

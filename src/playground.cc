@@ -37,7 +37,7 @@ int main(int argc, char* argv[]) {
     {
       // Create a string containing the JavaScript source code.
       v8::Local<v8::String> source =
-          v8::String::NewFromUtf8(isolate, "(function() { return 'hello universes'; })()",
+          v8::String::NewFromUtf8(isolate, "(function() { return 'hello universe!'; })()",
                                   v8::NewStringType::kNormal)
               .ToLocalChecked();
 
