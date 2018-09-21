@@ -1,5 +1,5 @@
 #!/bin/bash
-set -euo pipefail
+#set -euo pipefail
 
 function abspath {
     if [[ -d "$1" ]]
@@ -24,5 +24,8 @@ entry_file_relative_path=$1
 entry_file_path=$(abspath $entry_file_relative_path)
 entry_file_name=$(basename $entry_file_path)
 entry_base_file_name="${entry_file_name%.*}"
+
+# build-and-run on entry
+sh $scriptdir/build-and-run $entry_file_path
 
 fswatch -o $entry_file_path | (while read; do sh $scriptdir/build-and-run $entry_file_path; done)
