@@ -1,0 +1,49 @@
+#!/bin/bash
+set -euo pipefail
+echo "building ..."
+function abspath {
+    if [[ -d "$1" ]]
+    then
+        pushd "$1" >/dev/null
+        pwd
+        popd >/dev/null
+    elif [[ -e $1 ]]
+    then
+        pushd "$(dirname "$1")" >/dev/null
+        echo "$(pwd)/$(basename "$1")"
+        popd >/dev/null
+    else
+        echo "$1" does not exist! >&2
+        return 127
+    fi
+}
+
+scriptdir=$(cd $(dirname $0) && pwd)
+source "$scriptdir/env"
+entry_file_relative_path=$1
+entry_file_path=$(abspath $entry_file_relative_path)
+entry_file_name=$(basename $entry_file_path)
+entry_base_file_name="${entry_file_name%.*}"
+# echo $entry_file_path
+# echo $entry_file_name
+# echo $entry_base_file_name
+# echo $V8_ROOT
+
+output_binary_file_path=$V8_DEBUG_BUILD/$entry_base_file_name
+
+# remove binary if exists
+[ -e $output_binary_file_path ] && rm $output_binary_file_path
+
+g++ \
+-I$V8_ROOT \
+-I$V8_ROOT/include \
+$entry_file_path \
+-o $output_binary_file_path \
+-lv8 \
+-lv8_libbase \
+-lv8_libplatform \
+-licuuc \
+-licui18n \
+-L$V8_DEBUG_BUILD/ \
+-pthread \
+-std=c++0x

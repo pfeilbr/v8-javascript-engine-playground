@@ -1,0 +1,2 @@
+V8_ROOT=~/dev/v8
+V8_DEBUG_BUILD=$V8_ROOT/out.gn/x64.debug
